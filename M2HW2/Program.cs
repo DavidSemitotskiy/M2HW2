@@ -1,4 +1,5 @@
 ﻿using System;
+using Shop;
 
 namespace M2HW2
 {
@@ -6,7 +7,7 @@ namespace M2HW2
     {
         public static void Main(string[] args)
         {
-            Console.WriteLine("Hello World!");
+            Starter.RunProgram();
         }
     }
 }
