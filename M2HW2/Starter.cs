@@ -12,7 +12,7 @@ namespace Shop
         {
             Random rand = new Random();
             User user = new User("David", 672.9m);
-            Magazine magazine = new Magazine(new List<Product>
+            Store magazine = new Store(new List<Product>
             {
                 new Product("Соль", 12.9m),
                 new Product("Колбаса", 182.88m),
@@ -20,7 +20,11 @@ namespace Shop
                 new Product("Мороженное", 8.12m)
             });
             Console.WriteLine("Список товаров в магазине: ");
-            magazine.ShowProducts();
+            for (int i = 0; i < magazine.Products.Count; i++)
+            {
+                Console.WriteLine($"{i + 1}) {magazine.Products[i].Name} - {magazine.Products[i].Price:C}");
+            }
+
             Console.WriteLine($"Покупатель {user.Name} поместил такие товары в корзину: ");
             List<Product> productsToBasket = new List<Product>();
             int countProducts = rand.Next(1, 11);
@@ -30,9 +34,24 @@ namespace Shop
             }
 
             Basket basket = new Basket(productsToBasket);
-            basket.ShowProductsInBasket();
+            for (int i = 0; i < basket.Products.Count; i++)
+            {
+                Console.WriteLine($"{i + 1}) {basket.Products[i].Name} - {basket.Products[i].Price:C}");
+            }
+
+            basket.GetTotalSum();
+            Console.WriteLine($"Общая сумма: {basket.TotalSum:C}");
             Console.WriteLine("Оформляется заказ...");
             Order order = new Order(basket.Products);
+            Console.WriteLine("Чек: ");
+            Console.WriteLine($"Id заказа: {order.IdOrder}");
+            Console.WriteLine($"Id - {user.IdUser} : Name - {user.Name}");
+            for (int i = 0; i < order.Products.Count; i++)
+            {
+                Console.WriteLine($"{i + 1}) {order.Products[i].Name} - {order.Products[i].Price:C}");
+            }
+
+            Console.WriteLine($"Общая сумма - {order.TotalSum:C}");
             if (magazine.Checkout(order, user))
             {
                 Console.WriteLine("Заказ успешно оплачен");
